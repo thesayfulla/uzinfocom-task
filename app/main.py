@@ -2,8 +2,8 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 
-from .config import Settings
 from . import db
+from .api import auth
 
 
 @asynccontextmanager
@@ -18,7 +18,8 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
+app.include_router(auth.router)
+
 @app.get("/")
 async def root():
-    settings = Settings()
     return {"message": "hello world"}

@@ -1,3 +1,4 @@
+from functools import lru_cache
 from pathlib import Path
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -17,11 +18,18 @@ class Settings(BaseSettings):
     POSTGRES_PASSWORD: str
     POSTGRES_PORT: int = 5432
 
-    REDIS_PORT: int = 6379
-
     API_PORT: int = 8080
     DATABASE_URL: str
-    REDIS_URL: str
 
     db_pool_min_size: int = 1
     db_pool_max_size: int = 10
+
+    SECRET_KEY: str
+    ALGORITHM: str = "HS256"
+    ACCESS_TOKEN_EXPIRE_DAYS: int = 1
+    REFRESH_TOKEN_EXPIRE_DAYS: int = 7
+
+
+@lru_cache
+def get_settings() -> Settings:
+    return Settings()
