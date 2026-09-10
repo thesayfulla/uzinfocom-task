@@ -9,6 +9,7 @@ from . import db
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     app.state.pool = await db.connect()
+    await db.run_migrations(app.state.pool)
 
     try:
         yield
@@ -20,4 +21,4 @@ app = FastAPI(lifespan=lifespan)
 @app.get("/")
 async def root():
     settings = Settings()
-    return {"values": settings.__dict__}
+    return {"message": "hello world"}

@@ -10,6 +10,7 @@ _pool: asyncpg.Pool | None = None
 MIGRATION_FILE = Path(__file__).resolve().parent.parent / "migrations" / "init.sql"
 
 async def run_migrations(pool: asyncpg.Pool) -> None:
+    print("Running migrations")
     sql = MIGRATION_FILE.read_text()
     async with pool.acquire() as conn:
         await conn.execute(sql)
