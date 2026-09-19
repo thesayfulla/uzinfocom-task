@@ -29,6 +29,8 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_DAYS: int = 1
     REFRESH_TOKEN_EXPIRE_DAYS: int = 7
 
+    PAYMENT_TIMEOUT: int = 15
+
 
 @lru_cache
 def get_settings() -> Settings:

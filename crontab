@@ -1,0 +1,3 @@
+SHELL=/bin/bash
+
+* * * * * . /app/cron.env; cd /app && python3 -m app.cron.cancel_expired_orders >> /proc/1/fd/1 2>&1
